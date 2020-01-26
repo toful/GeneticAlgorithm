@@ -26,8 +26,10 @@ The input must be a Network in a \*.net Pajek file format.
 ### Output
 
 The output consists of:
-	- a CSV file with the result of all executions perfomed if the test variable is set to True.
-	- a  \*.clu Pajek format file with the partitions information if the test variable is set to False.
+
+- a CSV file with the result of all executions perfomed if the test variable is set to True.
+
+- a  \*.clu Pajek format file with the partitions information if the test variable is set to False.
 
 ## Usage
 
