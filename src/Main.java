@@ -41,9 +41,9 @@ public class Main {
 
 
     public static void runTests( Graph graph ){
-        int generations = 200;
-        int population = 20;
-        ArrayList<Double> mutation_probs = new ArrayList<Double>(Arrays.asList( 0.00, 0.05, 0.10));
+        int generations = 300;
+        int population = 50;
+        ArrayList<Double> mutation_probs = new ArrayList<Double>(Arrays.asList( 0.00, 0.01, 0.05, 0.10));
         String line="";
 
         try {
@@ -61,6 +61,7 @@ public class Main {
                                 for(int gene:GeneticAlgorithm.getInstance().bestChromosome){
                                     line += String.valueOf(gene);
                                 }
+                                writer.newLine();
                                 writer.write( line );
                                 System.out.println( line );
                             }
@@ -76,23 +77,31 @@ public class Main {
     }
 
     public static void main(String args[]) {
-        int generations = 200;
-        int population = 20;
+        int generations = 300;
+        int population = 50;
         Graph graph;
-        GeneticAlgorithm.SelectionAlgorithm selectionAlgorithm = GeneticAlgorithm.SelectionAlgorithm.RANK_SELECTION;
-        GeneticAlgorithm.FitnessFunction fitnessFunction = GeneticAlgorithm.FitnessFunction.ABS;
+        GeneticAlgorithm.SelectionAlgorithm selectionAlgorithm = GeneticAlgorithm.SelectionAlgorithm.ROULETTE_WHEEL;
+        GeneticAlgorithm.FitnessFunction fitnessFunction = GeneticAlgorithm.FitnessFunction.POW;
         GeneticAlgorithm.Crossover crossover = GeneticAlgorithm.Crossover.TWO_POINTS;
         double mutation_prob = 0.05;
         boolean elitism = true;
+
+        boolean test = false;
 
         //Getting the graph we have to divide in two partitions
         graph = new Graph( "data/zachary_unwh.net");
         System.out.println( graph );
 
         //running tests with different configuration parameters for the Genetic Algorithm
-        runTests( graph );
-        //running the Genetic Algorithm
-        //runGeneticAlgorithm( generations, population, graph, selectionAlgorithm, fitnessFunction, crossover, mutation_prob, elitism );
+        if( test ) runTests( graph );
+        else{
+            //running the Genetic Algorithm
+            runGeneticAlgorithm( generations, population, graph, selectionAlgorithm, fitnessFunction, crossover, mutation_prob, elitism );
+            //saving the best partition
+            System.out.println( "Best modularity achieved: " + GeneticAlgorithm.getInstance().bestFitness + "\n\t" );
+            for(int gene:GeneticAlgorithm.getInstance().bestChromosome) System.out.print( gene );
+            graph.storeResult( "result.clu" );
+        }
 
     }
 }

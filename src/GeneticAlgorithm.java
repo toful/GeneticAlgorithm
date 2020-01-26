@@ -320,10 +320,10 @@ public class GeneticAlgorithm {
 
         for( int i = 0; i < n; i++ ){
             for( int j = 0; j < n; j++ ){
-                modularity += (a[i][j] - k[i]*k[j]/(2*l) ) * ( s[i]*s[j] + (1-s[i])*(1-s[j]) );
+                modularity += ( a[i][j] - k[i]*k[j]/(2f*l) ) * ( s[i]*s[j] + (1-s[i])*(1-s[j]) );
             }
         }
-        modularity = modularity / (2*l);
+        modularity = modularity / (2f*l);
         return modularity;
     }
 

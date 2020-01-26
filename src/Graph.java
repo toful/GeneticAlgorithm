@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Graph {
     private String filename;
@@ -78,6 +79,37 @@ public class Graph {
         catch (Exception e){
             System.out.println("ERROR: when trying to open the file");
             System.exit(1);
+        }
+    }
+
+    public void storeResult(String filename){
+        int[] chromosome = GeneticAlgorithm.getInstance().bestChromosome;
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            writer.write( "*vertices " + num_nodes );
+            for(int i=0; i<num_nodes; i++){
+                writer.newLine();
+                writer.write( chromosome[i] );
+            }
+            writer.close();
+        }
+        catch (Exception e){
+            System.out.println("Something happened when writing the results");
+        }
+    }
+
+    public void storeChromosomeAsResult(String filename, String chromosome){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            writer.write( "*vertices " + num_nodes );
+            for(int i=0; i<num_nodes; i++){
+                writer.newLine();
+                writer.write( chromosome.charAt(i) );
+            }
+            writer.close();
+        }
+        catch (Exception e){
+            System.out.println("Something happened when writing the results");
         }
     }
 
