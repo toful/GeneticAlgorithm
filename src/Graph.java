@@ -89,7 +89,7 @@ public class Graph {
             writer.write( "*vertices " + num_nodes );
             for(int i=0; i<num_nodes; i++){
                 writer.newLine();
-                writer.write( chromosome[i] );
+                writer.write( String.valueOf(chromosome[i]) );
             }
             writer.close();
         }

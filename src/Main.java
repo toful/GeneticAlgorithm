@@ -40,14 +40,14 @@ public class Main {
     }
 
 
-    public static void runTests( Graph graph ){
+    public static void runTests( Graph graph, String file ){
         int generations = 300;
         int population = 50;
         ArrayList<Double> mutation_probs = new ArrayList<Double>(Arrays.asList( 0.00, 0.01, 0.05, 0.10));
         String line="";
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("tests.csv"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             line = "selectionAlgorithm,fitnessFunction,crossover,mutation_prob,elitism,fitness,chromosome";
             writer.write( line );
             for (GeneticAlgorithm.SelectionAlgorithm selectionAlgorithm : GeneticAlgorithm.SelectionAlgorithm.values()) {
@@ -93,14 +93,14 @@ public class Main {
         System.out.println( graph );
 
         //running tests with different configuration parameters for the Genetic Algorithm
-        if( test ) runTests( graph );
+        if( test ) runTests( graph, "tests.csv" );
         else{
             //running the Genetic Algorithm
             runGeneticAlgorithm( generations, population, graph, selectionAlgorithm, fitnessFunction, crossover, mutation_prob, elitism );
             //saving the best partition
             System.out.println( "Best modularity achieved: " + GeneticAlgorithm.getInstance().bestFitness + "\n\t" );
             for(int gene:GeneticAlgorithm.getInstance().bestChromosome) System.out.print( gene );
-            graph.storeResult( "result.clu" );
+            graph.storeResult( "zachary_unwh.clu" );
         }
 
     }
